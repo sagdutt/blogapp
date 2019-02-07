@@ -12,15 +12,19 @@ app.use(function(req, res, next) {
 
 //authentication
 app.use(function(req, res, next) {
-    var user = req.header('user');
-    var password = req.header('password');
+	if(req.method == "GET" || req.method == "POST"){
+	    var user = req.header('user');
+	    var password = req.header('password');
 
-    if (user === undefined || password === undefined || user !== 't3stBl0gU53r' || password !== '0p3N53sAMe') {
-        res.statusCode = 401;
-        res.json( {status :'Unauthorized'} );
-    } else {
-        next();
-    }
+	    if (user === undefined || password === undefined || user !== 't3stBl0gU53r' || password !== '0p3N53sAMe') {
+	        res.statusCode = 401;
+	        res.json( {status :'Unauthorized'} );
+	    } else {
+	        next();
+	    }
+	}else{
+		next();
+	}
 });
 
 // Store all posts in memory
