@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 app.use('/node_modules', express.static(__dirname + "/node_modules")); 
 app.use(bodyParser.json());
 
+app.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	next();
+});
+
 //authentication
 app.use(function(req, res, next) {
     var user = req.header('user');
