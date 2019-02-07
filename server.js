@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var uuid = require('uuid/v1');
 
 app.use('/node_modules', express.static(__dirname + "/node_modules")); 
 app.use(bodyParser.json());
@@ -38,8 +39,9 @@ app.get('/posts', function(req, res){
 });
 
 app.post('/post', function(req, res){
-	var post = {};
 	if( req.body !== undefined && 'title' in req.body && 'author' in req.body && 'body' in req.body){
+		var post = {};
+		post.id = uuid();
 		post.createdAt = new Date();
 		post.author = req.body.author;
 		post.title = req.body.title;
